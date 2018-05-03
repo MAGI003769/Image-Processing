@@ -11,6 +11,7 @@ figure(1)
 plot(x)
 title('x[1:256]')
 
+
 % Apply DFT and DCT to x
 X_f = fft(x);
 X_f = fftshift(X_f);
@@ -29,6 +30,7 @@ for i=1:length(steps)
     plot(temp_recover);
     psnr_f(i) = psnr(temp_recover, x);
 end
+saveas(gcf, './Task-1/1D_DFT.jpg')
 
 %%
 % Evaluate DCT
@@ -42,4 +44,5 @@ for i=1:length(steps)
     plot(temp_recover);
     psnr_c(i) = psnr(temp_recover, x);
 end
+saveas(gcf, './Task-1/1D_DCT.jpg')
     

@@ -15,7 +15,7 @@ figure(1)
 imshow(im)
 imwrite(im, '.\Task-2\N_16.jpg');
 % Display the log of magnitude result of 2D-DFT
-Im = 100*log(abs(fft2(im)));
+Im = log(abs(fft2(im)));
 Im_shift = fftshift(Im);
 figure(2)
 subplot(121)

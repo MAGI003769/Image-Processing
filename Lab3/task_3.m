@@ -5,53 +5,66 @@
 % Design a filter in frequency domain to remove 'fence' in image
 
 %%
+clear
+clc
+
+%%
 % Read `fence.jpg` and get its shape
 a = imread('fence.jpg');
 %a = rgb2gray(a);
 [M, N, c] = size(a);
-figure(1)
+figure
 imshow(a)
 title('Original image with fence')
+imwrite(a, './Task-3/origin.jpg')
 % Apply 2D fft and normalize the value to visualize
 A = fft2(a);
 A = fftshift(A);
 A_abs = abs(A);
-A_abs = (A_abs-min(A_abs(:)))/max(A_abs(:)) * 256;
-figure(2)
-imshow(A_abs)
-title('Visualized fft results')
+A_abs = log(A_abs);
+for i=1:c
+    figure
+    imshow(A_abs(:,:,1), [])
+    write_dir = strcat('./Task-3/fft_image_chan_', num2str(i),'.jpg');
+    A_abs(:,:,i) = (A_abs(:,:,i)-min(min(A_abs(:,:,i))))/max(max(A_abs(:,:,i))) * 255;
+    imwrite(cast(A_abs(:,:,1), 'uint8'), write_dir);
+end
 
 %%
 % Frequency filter design
-u0 = 500;
-u = 0:(M-1);
-v = 0:(N-1);
-x_ind = find(u>M/2);
-y_ind = find(v>N/2);
-u(x_ind) = u(x_ind) - M;
-v(y_ind) = v(y_ind) - N;
-[V, U] = meshgrid(v, u);
-H = zeros(M, N);
-for i=1:M
-    for j=1:N
-        UVw = double(U(i,j)*U(i,j) + V(i,j)*V(i,j))/(u0*u0);
-        H(i,j)=1/(1+UVw*UVw);
-    end
-end
-m = linspace(-1, 1, M);
-n = linspace(-1, 1, N);
-H = fftshift(H);
-contour(H,'ShowText','on')
+H = ones(M, N);
+H(300:320, 1:285) = 1e-15;
+H(300:320, N-285+1:N) = 1e-15;
+H(1:292, 240:300) = 1e-15;
+H(M-285+1:M,N-300+1:N-240+1) = 1e-15;
+figure
+imshow(H)
 
 %%
 % Filtering in frequency domain
 filtered = zeros(M,N,c);
+%A = fftshift(A);
 for i=1:c
-    filtered_i = A(:,:,1).*H;
+    filtered_i = A(:,:,i).*H;
     filtered(:,:,i) = filtered_i;
 end
-recover_img = abs(ifft2(filtered));
-for i = 1:c
-    recover_img = (recover_img - min(min(recover_img(:,:,i)))) / max(max(recover_img(:,:,i))) * 256;
+figure
+filtered_abs = log(abs(filtered));
+for i=1:c
+    subplot(1,3,i)
+    imshow(filtered_abs(:,:,1),[])
+    write_dir = strcat('./Task-3/masked_fft_chan_', num2str(i),'.jpg');
+    filtered_abs(:,:,i) = (filtered_abs(:,:,i)-min(min(filtered_abs(:,:,i))))/max(max(filtered_abs(:,:,i))) * 255;
+    imwrite(cast(filtered_abs(:,:,1), 'uint8'), write_dir);
 end
+
+% filtered = fftshift(filtered);
+recover_img = abs(ifft2(filtered));
+% filtering
+% for i=1:c
+%     recover_img(:,:,i) = medfilt2(recover_img(:,:,i));
+% end
+recover_img = cast(recover_img, 'uint8');
+figure
 imshow(recover_img);
+imwrite(recover_img, './Task-3/fence_removed.jpg')

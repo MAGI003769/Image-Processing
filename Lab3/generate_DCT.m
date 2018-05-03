@@ -7,8 +7,9 @@
 % https://ww2.mathworks.cn/help/matlab/matlab_prog/anonymous-functions.html
 
 %%
-function bases = generate_DCT(N)
+function [bases, bases_norm] = generate_DCT(N)
 bases = zeros(N, N, N, N);
+bases_norm = zeros(N, N, N, N);
 T = dctmtx(N);
 T = T';
 for i=1:N
@@ -29,7 +30,7 @@ for i=1:N
             range_b = max_b;
         end
         tmp_bs = (tmp_bs - min_b) / range_b;
-        bases(:,:,i,j) = tmp_bs ;
+        bases_norm(:,:,i,j) = tmp_bs ;
     end
 end
         

@@ -5,9 +5,9 @@ This repo is a collection of  coursework code for my Y4 module EEE330 Image Proc
 # To-do
 
 - [x] Lab 1: Image processing basic and MATLB Toolbox
-- [ ] Lab 2: Image enhancement
-- [ ] Lab 3: 
-- [ ] Lab 4:
+- [x] Lab 2: Image enhancement
+- [x] Lab 3: Image transform
+- [ ] Lab 4: Image Compression
 - [ ] Lab 5:
 
 # Links
@@ -15,3 +15,4 @@ This repo is a collection of  coursework code for my Y4 module EEE330 Image Proc
 Here collects some links to several relative repos. Most of them, perhaps, are popular repos  on GitHub while some are the works from my schoolfellows.
 
 - [CongBao/ImageEnhancer](https://github.com/CongBao/ImageEnhancer)
+- [ICCV2017 - Fast Image Processing](https://github.com/CQFIO/FastImageProcessing)
