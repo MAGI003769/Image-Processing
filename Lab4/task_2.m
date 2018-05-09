@@ -1,13 +1,12 @@
 %%
 % This script is for EEE330 Lab 4 
-% Task 1: Image compression
+% Task 1: Decompression and recover image
 % Author: Ruihao Wang
 
 %%
 % Paramters to pass into function
-N = 16;
-QP = 1;
-file_name = 'coded_vector';
+N = 8;
+QP = 50;
 
 % Generate Qmat matrix
 n = floor(log2(N+1)):-1:0;
@@ -17,7 +16,6 @@ for i=n(1:end-1)
 end
 
 %%
-% Read raw image and compress
-I = imread('lenna512.bmp');
-%I = im2double(I);
-rate = compress_im(I, Q_mat, QP, N, file_name);
+% Decompress from stored coded variable
+file_name = 'coded_vector';
+imo = decompress_im(Q_mat, QP, N, file_name);
