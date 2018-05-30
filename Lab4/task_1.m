@@ -5,8 +5,8 @@
 
 %%
 % Paramters to pass into function
-N = 16;
-QP = 1;
+N = 8;
+QP = 29;
 file_name = 'coded_vector';
 
 % Generate Qmat matrix

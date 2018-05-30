@@ -19,13 +19,20 @@ end
 Qmat = S*Qmat;
 
 % Load coded vector from local disk
-file_p = fopen('coded_vector', 'r');
+file_p = fopen(file_name, 'r');
 coded_vector = fread(file_p, 'uint8');
 
 % Decode vector to matrix
 decoded_vector = entropy_dec(coded_vector);
-M = sqrt(size(decoded_vector, 1));
-B = reshape(decoded_vector, M, M);
+decoded_vector = reshape(decoded_vector, N*N, []);
+%M = sqrt(size(decoded_vector, 1));
+%B = reshape(decoded_vector, M, M);
+
+% inverse zig-zag
+inv_zigzag = @(block_struct) izigzag(block_struct.data, N, N);
+B = blockproc(decoded_vector, [1, N*N], inv_zigzag);
+
+% Dequantizaiton
 de_quant = @(block_struct) block_struct.data .* Qmat;
 B = blockproc(B, [N N], de_quant);
 
@@ -35,8 +42,8 @@ imo = blockproc(B, [N N], inv_dct);
 imo = cast(imo, 'uint8');
 
 folder = strcat('./Reulsts_N_', num2str(N), '/');
-filename = strcat('recover_N', num2str(N), '_QP', num2str(QP),'.jpeg');
-full_name = strcat(folder, filename, 'Mode','lossless');
+filename = strcat('recover_N', num2str(N), '_QP', num2str(QP),'.jpg');
+full_name = strcat(folder, filename);
 imwrite(imo, full_name);
 
 return

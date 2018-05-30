@@ -7,8 +7,8 @@ This repo is a collection of  coursework code for my Y4 module EEE330 Image Proc
 - [x] Lab 1: Image processing basic and MATLB Toolbox
 - [x] Lab 2: Image enhancement
 - [x] Lab 3: Image transform
-- [ ] Lab 4: Image Compression
-- [ ] Lab 5:
+- [x] Lab 4: Image compression
+- [x] Lab 5: Morphological operations
 
 # Links
 

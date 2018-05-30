@@ -57,7 +57,7 @@ $b_{in}$ and $b_{out}$ are respectively pixel value of original matrix and quant
 
 **Zig-zag Reordering**
 
-As figure below illustrates, we will use a zig-zag reordering to convert two dimensional matrix into a vector for sequential entropy coding. 
+As figure below illustrates, we will use a zig-zag reordering to convert two dimensional matrix into a vector for later entropy coding. 
 
 ![zigzag](https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/JPEG_ZigZag.svg/220px-JPEG_ZigZag.svg.png)
 
@@ -69,7 +69,7 @@ After zig-zag reordering, JPEG employs Huffman coding for a lossless entropy cod
 
 ## Arithmetic Coding
 
-
+Arithmetic coding encodes the entire message into a **single number**. 
 
 
 

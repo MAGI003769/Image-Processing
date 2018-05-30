@@ -27,6 +27,10 @@ B = blockproc(im, [N N], dct);
 quant = @(block_struct) round(block_struct.data ./ Qmat);
 B2 = blockproc(B, [N N], quant);
 
+% Zig-zag reordering
+zig_zag = @(block_struct) zigzag(block_struct.data);
+B2 = blockproc(B2, [N, N], zig_zag);
+
 % Encoding
 coded_vector = entropy_enc(B2);
 file_p = fopen(file_name, 'w');
