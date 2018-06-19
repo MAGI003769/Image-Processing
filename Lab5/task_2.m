@@ -24,8 +24,8 @@ im_license_bw = round(im_license ./ quant) > 0;
 
 %%
 % Call function to detect characters
-% result = detect_car_license_plate_v1_new(im_license_bw, char_list);
-% disp(result);
+result = detect_car_license_plate_v1_new(im_license_bw, char_list);
+disp(result);
 
 % Call function to detect characters v2
 result = detect_car_license_plate_v2(im_license_bw, char_list);

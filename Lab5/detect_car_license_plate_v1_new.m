@@ -29,12 +29,13 @@ for i=5:(detect_len+4)
         temp_result = bwmorph(temp_result, 'shrink', Inf);
         if sum(temp_result(:)) ~= 0
             matched(j) = j;
+            break;
         end
     end
-    result_list{i,1} = matched(matched>0);
+    result_list{i-4,1} = matched(matched>0);
 end
-matched = matched > 0;
-str = strcat('The license is ку', char_list(matched));
+result = cell2mat(result_list);
+str = strcat('The license is ку', char_list(result));
 
 
 
